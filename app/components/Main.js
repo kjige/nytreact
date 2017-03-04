@@ -1,23 +1,17 @@
-// Include React
 var React = require("react");
 
-// Here we include all of the sub-components
 var Form = require("./children/Form");
 var Results = require("./children/Results");
-
-// Helper Function
 var helpers = require("./utils/helpers");
 
-// This is the main component
 var Main = React.createClass({
 
-  // Here we set a generic state associated with the number of clicks
   getInitialState: function() {
-    return { topic: "", startYear: "", endYear: "", results: "" };
+
+    return { topic: "", startYear: "", endYear: "", title: "", url: "", date: "", results: [] };
+
   },
 
-  // componentDidUpdate is a lifecycle method that will get run every time the component updates it's
-  // props or state
   componentDidUpdate: function(prevProps, prevState) {
     
     if (prevState.searchTerm !== this.state.topic) {
@@ -29,8 +23,16 @@ var Main = React.createClass({
         if (data !== this.state.results) {
 
           console.log(data);
+          
+          var articlesMapped = [];
+          
+          data.map(function(art){
+            
+            articlesMapped.push(art);
 
-          this.setState({ results: data });
+          });
+          
+          this.setState({ results: articlesMapped });
 
         }
 
@@ -39,37 +41,54 @@ var Main = React.createClass({
   },
 
   setTopic: function(term) {
+
     this.setState({ topic: term });
+
   },
 
   setStartYear: function(term) {
+
     this.setState({ startYear: term });
+
   },
 
   setEndYear: function(term) {
+
     this.setState({ endYear: term });
+
   },
 
   render: function() {
+    
+    var articles = this.state.results.map(function (art) {
+      return (<Results title={art.headline.main} url={art.web_url} date={art.pub_date} />)
+    });
+
     return (
+
       <div className="container">
+
         <div className="row">
+
           <div className="jumbotron">
-            <h2 className="text-center">Address Finder!</h2>
-            <p className="text-center">
-              <em>Enter a landmark to search for its exact address (ex: "Eiffel Tower").</em>
-            </p>
-          </div>
 
-          <div className="col-md-6">
-
-            <Form setTerm={this.setTerm} />
+            <h1 className="text-center"><strong><i className="fa fa-newspaper-o"></i> New York Times Search</strong></h1>
 
           </div>
 
-          <div className="col-md-6">
+          <div className="col-xs-10 col-xs-offset-1">
 
-            <Results address={this.state.results} />
+            <Form setTopic={this.setTopic} setStartYear={this.setStartYear} setEndYear={this.setEndYear} />
+
+          </div>
+        
+        </div>
+
+        <div className="row">
+
+          <div className="col-xs-10 col-xs-offset-1">
+
+            {articles}
 
           </div>
         </div>

@@ -6,17 +6,15 @@ var helpers = {
 
   runQuery: function(topic, startYear, endYear) {
 
-    console.log(topic, startYear, endYear);
-
     var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" 
     + authKey + "&q=" + topic + "&begin_date=" + startYear + "0101" + "&end_date=" + endYear + "0101";
 
-    console.log(queryURL);
-
     return axios.get(queryURL).then(function(response) {
 
-      console.log(response);
-      return response.data.results[0].formatted;
+      console.log(response.data.response.docs);
+
+      return response.data.response.docs;
+
     });
   }
 };

@@ -22,13 +22,17 @@ var Main = React.createClass({
 
     event.preventDefault();
 
-    this.props.setTopic(topic: this.state.topic);
+    this.props.setTopic(this.state.topic);
     
-    this.props.setStartYear(startYear: this.state.startYear);
+    this.props.setStartYear(this.state.startYear);
     
-    this.props.setEndYear(endYear: this.props.endYear);
+    this.props.setEndYear(this.state.endYear);
 
-    this.setState({ term: "" });
+    this.setState({ topic: "" });
+    
+    this.setState({ startYear: "" });
+    
+    this.setState({ endYear: "" });
 
   },
 
@@ -73,7 +77,7 @@ var Main = React.createClass({
         </div>
 
       </div>
-    );
+    )
   }
 });
 
