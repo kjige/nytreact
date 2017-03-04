@@ -1,23 +1,19 @@
-// Include React
 var React = require("react");
 
-// This is the main component. It includes the banner and Results element.
 var Results = React.createClass({
 
-  // Here we render the function
   render: function() {
+    
     return (
-      <div className="panel panel-default">
-        <div className="panel-heading">
-          <h3 className="panel-title text-center">Results</h3>
+
+        <div className="well">
+
+          <a href={this.props.url} target="_blank"><h5>{this.props.title}</h5></a>
+
+          <p>Date Published: {this.props.date}</p>
+
         </div>
-        <div className="panel-body text-center">
-          <h1>Address:</h1>
-          <p>{this.props.title}</p>
-          <p>{this.props.url}</p>
-          <p>{this.props.date}</p>
-        </div>
-      </div>
+
     );
   }
 });

@@ -15,14 +15,10 @@ var Main = React.createClass({
   componentDidUpdate: function(prevProps, prevState) {
     
     if (prevState.searchTerm !== this.state.topic) {
-      
-      console.log("UPDATED");
 
       helpers.runQuery(this.state.topic, this.state.startYear, this.state.endYear).then(function(data) {
 
         if (data !== this.state.results) {
-
-          console.log(data);
           
           var articlesMapped = [];
           
@@ -60,8 +56,10 @@ var Main = React.createClass({
 
   render: function() {
     
-    var articles = this.state.results.map(function (art) {
-      return (<Results title={art.headline.main} url={art.web_url} date={art.pub_date} />)
+    var articles = this.state.results.map(function (art, i) {
+      if (i<5) {
+        return (<Results key={i} title={art.headline.main} url={art.web_url} date={art.pub_date} />)
+      }
     });
 
     return (
@@ -88,11 +86,23 @@ var Main = React.createClass({
 
           <div className="col-xs-10 col-xs-offset-1">
 
-            {articles}
+            <div className="panel panel-default">
 
+              <div className="panel-heading">
+
+                <h3 className="panel-title text-center">Results</h3>
+
+              </div>
+
+              <div className="panel-body text-center">
+              
+                {articles}
+
+              </div>
+            </div>
           </div>
-        </div>
       </div>
+    </div>
     );
   }
 });
