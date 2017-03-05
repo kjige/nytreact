@@ -1,6 +1,6 @@
 var React = require("react");
 
-var Main = React.createClass({
+var Form = React.createClass({
 
   getInitialState: function() {
 
@@ -50,7 +50,7 @@ var Main = React.createClass({
 
             <div className="form-group">
 
-              <h4 className=""><strong>Topic</strong></h4>
+              <h4><strong>Topic</strong></h4>
 
               <input type="text" value={this.state.topic} className="form-control text-center" id="topic" onChange={this.handleChange} required/>
               
@@ -81,4 +81,4 @@ var Main = React.createClass({
   }
 });
 
-module.exports = Main;
+module.exports = Form;
