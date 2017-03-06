@@ -15,7 +15,24 @@ var helpers = {
       return response.data.response.docs;
 
     });
-  }
+  },
+
+  saveArticle: function(data) {
+
+        return axios.post('/saveThisArticle', data)
+
+        .then(function(dbRes) {
+            return (''+ dbRes.status + ' ' + dbRes.text);
+        })
+        .catch(function (error) {
+            if(error) {
+                console.log(error);
+                throw error;
+                return null;
+            }
+        });
+    }
+
 };
 
 // We export the helpers object (which contains runQuery)

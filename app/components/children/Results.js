@@ -8,34 +8,26 @@ var Results = React.createClass({
 
   },
 
-  componentDidUpdate: function(prevProps, prevState) {
+  // componentDidUpdate: function(prevProps, prevState) {
 
-    if (prevState.artId !== this.state.artId) {
-      var savedArticles = this.state.savedArticles;
+  //   if (prevState.artId !== this.state.artId) {
+  //     var savedArticles = this.state.savedArticles;
 
-      var newArticle = {
-          title: article.title,
-          link: article.link,
-          pub_date: article.date
-      };
+  //     var newArticle = {
+  //         title: results[this.state.artId].title,
+  //         link: results[this.state.artId].link,
+  //         pub_date: results[this.state.artId].date
+  //     };
 
-      axios.post('api/post', newArticle).then((err, res)=>{
+  //     axios.post('api/post', newArticle).then((err, res)=>{
         
-        savedArticles.push(res.data);
+  //       savedArticles.push(res.data);
         
-        this.setState({savedArticles: savedArticles});
+  //       this.setState({savedArticles: savedArticles});
         
-      });
-    }
-  },
-
-  handleSaveArticle: function(term) {
-
-    event.preventDefault();
-
-    this.setState({ artId: term });
-
-  },
+  //     });
+  //   }
+  // },
 
   render: function() {
   
@@ -47,9 +39,9 @@ var Results = React.createClass({
 
           <p>Date Published: {this.props.date}</p>
 
-            <form onSubmit={this.handleSaveArticle}>
+            <form>
 
-              <button className="btn btn-primary" type="submit">Save Article</button>
+              <button className="btn btn-primary" type="button" onClick={this.props.handleSaveArticle}>Save Article</button>
 
             </form>
 

@@ -8,7 +8,7 @@ var Main = React.createClass({
 
   getInitialState: function() {
 
-    return { topic:"", startYear: "", endYear:"", title: "", url: "", date: "", results: [], save: [], savedArticles: [] };
+    return { topic:"", startYear: "", endYear:"", title: "", url: "", date: "", results: [], save: [], savedArticles: [], artId: "" };
 
   },
 
@@ -20,7 +20,7 @@ var Main = React.createClass({
 
   getSavedArticles: function() {
       
-    axios.get('/getSavedArticles/').then(function(response) {
+    axios.get('/getSavedArticles').then(function(response) {
       
       this.setState({ savedArticles: response.data });
       
@@ -58,9 +58,9 @@ var Main = React.createClass({
       var savedArticles = this.state.savedArticles;
 
       var newArticle = {
-          title: article.title,
-          link: article.link,
-          pub_date: article.date
+          title: results[this.state.artId].title,
+          link: results[this.state.artId].link,
+          pub_date: results[this.state.artId].date
       };
 
       axios.post('api/post', newArticle).then((err, res)=>{
@@ -88,22 +88,55 @@ var Main = React.createClass({
     this.setState({ endYear: term });
   },
 
+  setArtId: function(term) {
+    
+    this.setState({ artId: term });
+  },
+
+  saveArticle: function(event, article) {
+
+    event.preventDefault();
+
+    helpers.saveArticle(article);
+
+  },
+
   render: function() {
     
     var articles = this.state.results.map( function (art, i) {
-      
+
       if (i<5) {
        
-        return (<Results key={i} artId={i} title={art.headline.main} url={art.web_url} date={art.pub_date} />)
-      
+        return (
+
+          <div className="well" key={i}>
+
+            <a href={art.web_url} target="_blank"><h5>{art.headline.main}</h5></a>
+
+            <p>Date Published: {art.pub_date}</p>
+
+            <form>
+
+            {/*onSubmit={ function(event) {this.saveArticle(event, art)}.bind(this)}*/}
+
+              <button className="btn btn-primary" type="button" onClick={this.saveArticle.bind(this, art)}>Save Article</button>
+            
+            </form>
+          
+          </div>
+
+        );
       }
     
     });
 
     var savedArticles = this.state.savedArticles.map( function(art, i) {
        
-      return (<Results key={i} artId={art._id} title={art.headline.main} url={art.web_url} date={art.pub_date} />)
-      
+      return (<Results key={i} 
+                        artId={art._id} 
+                        title={art.headline.main} 
+                        url={art.web_url} 
+                        date={art.pub_date} />)
     });
 
     return (
