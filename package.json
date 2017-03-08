@@ -20,6 +20,7 @@
   "homepage": "https://github.com/kjige/nytreact#readme",
   "dependencies": {
     "axios": "^0.15.3",
+    "bluebird": "^3.5.0",
     "body-parser": "^1.17.0",
     "express": "^4.15.0",
     "mongoose": "^4.8.5",

@@ -1,6 +1,5 @@
 var axios = require("axios");
 
-// var authKey = "b9f91d369ff59547cd47b931d8cbc56b:0:74623931";
 var authKey = "1d1580ba1e004730ba20593c692834e0";
 
 var helpers = {
@@ -19,18 +18,20 @@ var helpers = {
 
   saveArticle: function(data) {
 
-        return axios.post('/saveThisArticle', data)
+        var newArticle = {
+          title: data.headline.main,
+          link: data.web_url,
+          pub_date: data.pub_date
+      };
 
-        .then(function(dbRes) {
-            return (''+ dbRes.status + ' ' + dbRes.text);
-        })
-        .catch(function (error) {
-            if(error) {
-                console.log(error);
-                throw error;
-                return null;
-            }
-        });
+        return axios.post('/api/saved', newArticle)
+
+    },
+
+    getSavedArticles: function(data) {
+
+      return axios.get('/api/saved');
+      
     }
 
 };

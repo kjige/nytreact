@@ -2,25 +2,35 @@ var Article = require("../models/Article");
 
 module.exports = function(app) {
 
-    app.get("/", function(req, res) {
+    app.get("*", function(req, res) {
+
         res.sendFile(__dirname + "/public/index.html");
+
     });
 
-    app.post("/saveThisArticle", function(req, res){
+    app.post("/api/saved", function(req, res){
 
-        Article.findOneAndUpdate({title: results.title, date: date, url: url}, {upsert:true}, function(err, doc) {
+        Article.findOneAndUpdate({title: res.title, date: res.pub_date, url: res.web_url}, {upsert:true}, function(err, doc) {
             
             if (err) { console.log(err); }
-            else { res.redirect("/"); }
+
+            else { res.redirect("/getSavedArticles"); }
+
         });
 
     });
 
-    app.get("/getSavedArticles", function(req, res){
+    app.get("/api/saved", function(req, res){
 
         Article.find({}, function(err, dbArticles){
+            
+            if (err) {console.log(err);}
+            
+            else {
 
-            return dbArticles;
+                res.send(dbArticles);
+            
+            }
 
         });
 

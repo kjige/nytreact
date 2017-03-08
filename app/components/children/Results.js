@@ -1,33 +1,13 @@
 var React = require("react");
+var helpers = require("../utils/helpers.js");
 
 var Results = React.createClass({
-  
-  getInitialState: function() {
 
-    return { artId: ""};
+  saveArticle: (article) => {
+
+    helpers.saveArticle(article);
 
   },
-
-  // componentDidUpdate: function(prevProps, prevState) {
-
-  //   if (prevState.artId !== this.state.artId) {
-  //     var savedArticles = this.state.savedArticles;
-
-  //     var newArticle = {
-  //         title: results[this.state.artId].title,
-  //         link: results[this.state.artId].link,
-  //         pub_date: results[this.state.artId].date
-  //     };
-
-  //     axios.post('api/post', newArticle).then((err, res)=>{
-        
-  //       savedArticles.push(res.data);
-        
-  //       this.setState({savedArticles: savedArticles});
-        
-  //     });
-  //   }
-  // },
 
   render: function() {
   
@@ -41,7 +21,7 @@ var Results = React.createClass({
 
             <form>
 
-              <button className="btn btn-primary" type="button" onClick={this.props.handleSaveArticle}>Save Article</button>
+              <button className="btn btn-primary" type="button" onClick={this.saveArticle(this.props.art)}>Save Article</button>
 
             </form>
 

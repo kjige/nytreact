@@ -2,7 +2,6 @@ var React = require("react");
 var Form = require("./children/Form");
 var Results = require("./children/Results");
 var helpers = require("./utils/helpers");
-var axios = require("axios");
 
 var Main = React.createClass({
 
@@ -14,63 +13,34 @@ var Main = React.createClass({
 
   componentDidMount: function() {
         
-    this.getSavedArticles()
+    helpers.getSavedArticles().then((res) => {
+    
+      if (res.data !== this.state.savedArticles) {
+        
+        this.setState({savedArticles: res.data});
+        
+      }
+    
+    });
   
   },
 
-  getSavedArticles: function() {
-      
-    axios.get('/getSavedArticles').then(function(response) {
-      
-      this.setState({ savedArticles: response.data });
-      
-    });
-  },
-
   componentDidUpdate: function(prevProps, prevState) {
-    
-    if (prevState.topic !== this.state.topic) {
+  
+      var articlesMapped = [];
 
       helpers.runQuery(this.state.topic, this.state.startYear, this.state.endYear).then((data) => {
-
-        if (data !== this.state.results) {
-          
-          var articlesMapped = [];
           
           data.map(function(art, i) {
             
             articlesMapped.push(art);
 
           });
-          
-          this.setState({ results: articlesMapped });
-
-        }
-      });
-    }
-
-    if (prevState.savedArticles !== this.state.savedArticles) {
-        console.log("NO");
-      }
     
-
-    if (prevState.artId !== this.state.artId) {
-      var savedArticles = this.state.savedArticles;
-
-      var newArticle = {
-          title: results[this.state.artId].title,
-          link: results[this.state.artId].link,
-          pub_date: results[this.state.artId].date
-      };
-
-      axios.post('api/post', newArticle).then((err, res)=>{
-        
-        savedArticles.push(res.data);
-        
-        this.setState({savedArticles: savedArticles});
-        
       });
-    }
+      
+      this.setState({ results: articlesMapped });
+
   },
 
   setTopic: function (term) {
@@ -93,13 +63,18 @@ var Main = React.createClass({
     this.setState({ artId: term });
   },
 
-  saveArticle: function(event, article) {
+  // getSavedArticles: function(req) {
+      
+  //   helpers.getSavedArticles('/getSavedArticles').then(function(response) {
+      
+  //     if(response !== undefined ){
 
-    event.preventDefault();
+  //       this.setState({ savedArticles: response.data });
 
-    helpers.saveArticle(article);
-
-  },
+  //     }
+      
+  //   });
+  // },
 
   render: function() {
     
@@ -109,26 +84,14 @@ var Main = React.createClass({
        
         return (
 
-          <div className="well" key={i}>
-
-            <a href={art.web_url} target="_blank"><h5>{art.headline.main}</h5></a>
-
-            <p>Date Published: {art.pub_date}</p>
-
-            <form>
-
-            {/*onSubmit={ function(event) {this.saveArticle(event, art)}.bind(this)}*/}
-
-              <button className="btn btn-primary" type="button" onClick={this.saveArticle.bind(this, art)}>Save Article</button>
-            
-            </form>
-          
-          </div>
+          <Results key={i} url={art.web_url} title={art.headline.main} date={art.pub_date} art={art} />
 
         );
       }
     
     });
+
+    // this.getSavedArticles();
 
     var savedArticles = this.state.savedArticles.map( function(art, i) {
        
