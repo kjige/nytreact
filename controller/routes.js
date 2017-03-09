@@ -2,7 +2,7 @@ var Article = require("../models/Article");
 
 module.exports = function(app) {
 
-    app.get("*", function(req, res) {
+    app.get("/", function(req, res) {
 
         res.sendFile(__dirname + "/public/index.html");
 
@@ -10,11 +10,14 @@ module.exports = function(app) {
 
     app.post("/api/saved", function(req, res){
 
-        Article.findOneAndUpdate({title: res.title, date: res.pub_date, url: res.web_url}, {upsert:true}, function(err, doc) {
+        Article.findOneAndUpdate({title: res.title, date: res.pub_date, url: res.url}, {upsert:true}, function(err, doc) {
             
             if (err) { console.log(err); }
 
-            else { res.redirect("/getSavedArticles"); }
+            else { 
+                
+                console.log("SAVED");
+                res.send(true); }
 
         });
 

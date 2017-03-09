@@ -14,7 +14,7 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 app.use(express.static("./public"));
 
-mongoose.connect("mongodb://localhost/nytreact", function (err) {
+mongoose.connect("mongodb://localhost:27017/nytreact", function (err) {
     
     if (err) { console.log("Connection Failed!", err); } 
     

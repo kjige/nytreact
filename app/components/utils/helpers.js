@@ -20,17 +20,29 @@ var helpers = {
 
         var newArticle = {
           title: data.headline.main,
-          link: data.web_url,
-          pub_date: data.pub_date
+          url: data.web_url,
+          date: data.pub_date
       };
 
-        return axios.post('/api/saved', newArticle)
+        return axios.post('/api/saved', newArticle).then(function(){
+          
+          return axios.get('/api/saved').then(function(res){
+            console.log(res);
+            return res;
+
+          });
+
+        })
 
     },
 
     getSavedArticles: function(data) {
 
-      return axios.get('/api/saved');
+      return axios.get('/api/saved').then(function(res){
+
+        return res;
+
+      });
       
     }
 

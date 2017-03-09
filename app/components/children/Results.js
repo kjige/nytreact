@@ -1,32 +1,25 @@
 var React = require("react");
-var helpers = require("../utils/helpers.js");
+var ResultsArticle = require('./grandchildren/ResultsArticle');
 
 var Results = React.createClass({
 
-  saveArticle: (article) => {
-
-    helpers.saveArticle(article);
-
-  },
-
   render: function() {
-  
+    
     return (
+      
+      <div>
+        
+        {this.props.results.map( function (art, i) {
 
-        <div className="well">
+          return (
+              
+            <ResultsArticle key={i} art={art} url={art.web_url} title={art.headline.main} date={art.pub_date} saveArticle={this.props.saveArticle}/>
+            
+          )
 
-          <a href={this.props.url} target="_blank"><h5>{this.props.title}</h5></a>
-
-          <p>Date Published: {this.props.date}</p>
-
-            <form>
-
-              <button className="btn btn-primary" type="button" onClick={this.saveArticle(this.props.art)}>Save Article</button>
-
-            </form>
-
-        </div>
-
+        }.bind(this))}  
+            
+      </div>
     );
   }
 });
