@@ -20,7 +20,7 @@ app.use(methodOverride('_method'));
 
 app.use(express.static("./public"));
 
-mongoose.connect("mongodb://localhost:27017/nytreact", function (err) {
+mongoose.connect("mongodb://heroku_cq7kfnzz:884t9f3iv0qaf6i41t0vst2pqn@ds127260.mlab.com:27260/heroku_cq7kfnzz", function (err) {
     
     if (err) { console.log("Connection Failed!", err); } 
     
