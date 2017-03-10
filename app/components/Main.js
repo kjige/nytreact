@@ -11,6 +11,12 @@ var Main = React.createClass({
     return { topic:"", startYear: "", endYear:"", title: "", url: "", date: "", results: [], save: [], savedArticles: [] };
 
   },
+  
+  componentDidMount: function() {
+    
+    this.getSavedArticles();
+
+  },
 
   componentDidUpdate: function(prevProps, prevState) {
     
@@ -55,13 +61,18 @@ var Main = React.createClass({
     this.setState({ saved: term });
   },
 
+  setSavedArticles: function(term) {
+    
+    this.setState({ savedArticles: term });
+  },
+
   saveArticle: function (article) {
 
-    helpers.saveArticle(article).then(function(res){
+    helpers.saveArticle(article).then((res)=>{
 
-      console.log("ARTICLE SAVED!");
+      console.log("RES",res);
 
-      this.setState({savedArticles: res});
+      this.setSavedArticles(res);
 
     });
 
@@ -69,20 +80,21 @@ var Main = React.createClass({
 
   getSavedArticles: function(req) {
       
-    helpers.getSavedArticles().then(function(res) {
+    helpers.getSavedArticles().then((res) => {
 
         this.setState( { savedArticles: res } );
 
     });
   },
 
-  delete: function(art){
+  delete: function(artId) {
+        
+    helpers.delete(artId).then(() => {
 
-    helpers.delete().then(function(res){
-
-      this.setState( { savedArticles: res} )
+      this.getSavedArticles();
 
     });
+    
   },
 
   render: function() {

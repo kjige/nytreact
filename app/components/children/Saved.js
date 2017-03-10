@@ -4,21 +4,24 @@ var SavedArticle = require('./grandchildren/SavedArticle');
 var Saved = React.createClass({
   
   render: function() {
+    
     return (
 
       <div>
     
         {this.props.savedArticles.map( function (art, i) {
 
-      return (
+          return (
 
-        <div>
-          <SavedArticle key={i} art={art} url={art.url} title={art.title} date={art.date} delete={this.props.delete} />
-        </div>
-      )
+            <div key={i}>
+              <SavedArticle artId={art._id} url={art.url} title={art.title} date={art.date} delete={this.props.delete} />
+            </div>
+          )
 
-    }.bind(this))}  
+        }.bind(this))}  
+
     </div>
+    
     )
   }
 });

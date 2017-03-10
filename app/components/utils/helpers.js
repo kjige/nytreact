@@ -27,8 +27,8 @@ var helpers = {
         return axios.post('/api/saved', newArticle).then(function(){
           
           return axios.get('/api/saved').then(function(res){
-            console.log(res);
-            return res;
+
+            return res.data;
 
           });
 
@@ -36,14 +36,20 @@ var helpers = {
 
     },
 
-    getSavedArticles: function(data) {
+    getSavedArticles: function() {
 
       return axios.get('/api/saved').then(function(res){
 
-        return res;
+        return res.data;
 
       });
       
+    },
+
+    delete: function(artId) {
+      
+      return axios.delete('/api/saved/' + artId).then(function(res) {});
+    
     }
 
 };

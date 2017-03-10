@@ -3,9 +3,9 @@ var helpers = require("../../utils/helpers.js");
 
 var SavedArticle = React.createClass({
 
-    delete: function (article) {
+    delete: function (artId) {
 
-        this.props.delete(article);
+        this.props.delete(artId);
 
     },
 
@@ -13,7 +13,7 @@ var SavedArticle = React.createClass({
 
     return (
 
-        <div className="well" key={this.props.index}>
+        <div className="well">
 
             <a href={this.props.url} target="_blank"><h5>{this.props.title}</h5></a>
 
@@ -21,7 +21,7 @@ var SavedArticle = React.createClass({
 
             <form>
 
-                <button className="btn btn-primary" type="button" onClick={()=>{this.delete(this.props.art)}}>Save Article</button>
+                <button className="btn btn-primary" type="button" onClick={()=>{this.delete(this.props.artId)}}>Delete </button>
 
             </form>
 

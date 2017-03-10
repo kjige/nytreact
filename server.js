@@ -1,8 +1,12 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
+var methodOverride = require('method-override');
+
 var Article = require("./models/Article.js");
+
 mongoose.Promise = Promise;
+
 var app = express();
 const PORT = process.env.PORT || 3000;
 var db;
@@ -11,6 +15,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
+
+app.use(methodOverride('_method'));
 
 app.use(express.static("./public"));
 

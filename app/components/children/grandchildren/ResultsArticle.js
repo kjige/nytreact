@@ -13,7 +13,7 @@ var ResultsArticle = React.createClass({
 
     return (
 
-        <div className="well" key={this.props.index}>
+        <div className="well">
 
             <a href={this.props.url} target="_blank"><h5>{this.props.title}</h5></a>
 

@@ -10,13 +10,14 @@ module.exports = function(app) {
 
     app.post("/api/saved", function(req, res){
 
-        Article.findOneAndUpdate({title: res.title, date: res.pub_date, url: res.url}, {upsert:true}, function(err, doc) {
+        var art = req.body;
+        
+        Article.create({title: art.title, date: art.date, url: art.url}, function(err, doc) {
             
             if (err) { console.log(err); }
 
             else { 
-                
-                console.log("SAVED");
+
                 res.send(true); }
 
         });
@@ -37,5 +38,18 @@ module.exports = function(app) {
 
         });
 
+    });
+
+    app.delete('/api/saved/:id', function(request, response) {
+        
+        var artId = request.params.id;
+        
+        Article.remove({ _id: artId }, function(error, article) {
+            
+            if (error) { response.send(error); } 
+         
+            else { response.send(article); }
+        
+        });
     });
 }
