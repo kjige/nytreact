@@ -56,11 +56,6 @@ var Main = React.createClass({
     this.setState({ endYear: term });
   },
 
-  setSaved: function(term) {
-    
-    this.setState({ saved: term });
-  },
-
   setSavedArticles: function(term) {
     
     this.setState({ savedArticles: term });
@@ -69,8 +64,6 @@ var Main = React.createClass({
   saveArticle: function (article) {
 
     helpers.saveArticle(article).then((res)=>{
-
-      console.log("RES",res);
 
       this.setSavedArticles(res);
 
@@ -122,7 +115,7 @@ var Main = React.createClass({
               </div>
 
               <div className="panel-body text-center">
-                <Saved delete = {this.delete} savedArticles={this.state.savedArticles}/>
+                <Saved delete={this.delete} savedArticles={this.state.savedArticles}/>
               </div>
 
             </div>
@@ -138,7 +131,7 @@ var Main = React.createClass({
                 </div>
 
                 <div className="panel-body text-center">
-                  <Results results = {this.state.results} setSaved={this.setSaved} saveArticle={this.saveArticle} />
+                  <Results results={this.state.results} setSaved={this.setSaved} saveArticle={this.saveArticle} />
                 </div>
 
               </div>
