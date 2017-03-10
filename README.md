@@ -4,4 +4,4 @@ Save your favorite articles.
 Delete previously saved articles.
 
 # Heroku
-https://enigmatic-gorge-41315.herokuapp.com/
+https://nyt-mern.herokuapp.com/
