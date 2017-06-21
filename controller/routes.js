@@ -55,7 +55,7 @@ module.exports = function(app) {
     });
 
     app.get("/api/resume", function(req, res){
-        console.log(req);
+        res.send('OK');
     });
 
     app.get("*", function(req, res) {
