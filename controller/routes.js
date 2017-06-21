@@ -54,6 +54,10 @@ module.exports = function(app) {
         });
     });
 
+    app.get("/api/resume", function(req, res){
+        console.log(req);
+    });
+
     app.get("*", function(req, res) {
 
         res.sendFile(path.join(__dirname, '../public', 'index.html'));
