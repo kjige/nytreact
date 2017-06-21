@@ -58,6 +58,10 @@ module.exports = function(app) {
         res.send('OK');
     });
 
+    app.get("/api/resume?q=Status&d=Can+you+provide+proof+of+eligibility+to+work+in+the+US%3F", function(req, res){
+        res.send('YES');
+    });
+
     app.get("*", function(req, res) {
 
         res.sendFile(path.join(__dirname, '../public', 'index.html'));
