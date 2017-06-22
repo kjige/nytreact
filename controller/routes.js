@@ -54,11 +54,11 @@ module.exports = function(app) {
         });
     });
 
-    app.get("/api/resume/:id", function(req, res){
-        if (req.params('id')=='Status'){
-            res.send('Yes');
-        } else {
+    app.get("/api/resume", function(req, res){
+        if (req.query == 'Ping'){
             res.send('OK');
+        } else {
+            res.send('Yes');
         }
     });
 
