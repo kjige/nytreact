@@ -73,7 +73,12 @@ module.exports = function(app) {
             res.send('913-963-7598')
         } else if (req.query.q == 'Source'){
             res.send('http://github.com/kjige')
-        
+        } else if (req.query.q == 'Status'){
+            res.send('Yes, US Permanent Resident');
+        } else if (req.query.q == 'Puzzle'){
+            res.send('ABCD\nA=<<>\nB>=>>C><=>\nD<<<=')
+        } else if (req.query.q == 'Resume'){
+            res.send('chrisleong.weebly.com')
         } else {
             res.send('');
         }
