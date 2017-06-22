@@ -54,12 +54,12 @@ module.exports = function(app) {
         });
     });
 
-    app.get("/api/resume", function(req, res){
-        res.send('OK');
-    });
-
-    app.get("/api/resume?q=Status&d=Can+you+provide+proof+of+eligibility+to+work+in+the+US%3F", function(req, res){
-        res.send('YES');
+    app.get("/api/resume/:id", function(req, res){
+        if (req.params('id')=='Status'){
+            res.send('Yes');
+        } else {
+            res.send('OK');
+        }
     });
 
     app.get("*", function(req, res) {
