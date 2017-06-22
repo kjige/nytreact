@@ -76,7 +76,7 @@ module.exports = function(app) {
         } else if (req.query.q == 'Status'){
             res.send('Yes, US Permanent Resident');
         } else if (req.query.q == 'Puzzle'){
-            res.send('ABCD\nA=<<>\nB>=>>C><=>\nD<<<=')
+            res.send('ABCD\nA=<><\nB>=><\nC<<=<\nD>>>=')
         } else if (req.query.q == 'Resume'){
             res.send('chrisleong.weebly.com')
         } else {
@@ -90,3 +90,8 @@ module.exports = function(app) {
 
     });
 }
+
+// ABCD
+// A=<<>
+// B>=>>C><=>
+// D<<<=
