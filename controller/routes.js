@@ -55,7 +55,7 @@ module.exports = function(app) {
     });
 
     app.get("/api/resume", function(req, res){
-        if (req.query == 'Ping'){
+        if (req.query.q == 'Ping'){
             res.send('OK');
         } else {
             res.send('Yes');
